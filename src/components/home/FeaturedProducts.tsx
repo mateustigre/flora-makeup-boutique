@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ShoppingCart, Star } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
 
 const featuredProducts = [
   {
@@ -39,6 +40,8 @@ const featuredProducts = [
 ];
 
 export const FeaturedProducts = () => {
+  const { addItem } = useCart();
+
   return (
     <section className="py-16 bg-background">
       <div className="container mx-auto px-4">
@@ -80,7 +83,17 @@ export const FeaturedProducts = () => {
                 </p>
               </CardContent>
               <CardFooter className="p-4 pt-0">
-                <Button className="w-full" variant="default">
+                <Button 
+                  className="w-full" 
+                  variant="default"
+                  onClick={() => addItem({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    category: product.category
+                  })}
+                >
                   <ShoppingCart className="mr-2 h-4 w-4" />
                   Adicionar ao Carrinho
                 </Button>
